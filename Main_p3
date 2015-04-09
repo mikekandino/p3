@@ -1,0 +1,80 @@
+/*
+ *  Java Program to Implement Sorted Singly Linked List
+ */
+ 
+import java.util.LinkedList;
+import java.util.Scanner;
+ 
+
+public class Main_p3 // SortedSinglyLinkedList
+
+{
+	public static TextFileInput reader;
+    private static GUI ThreeColGUI;
+    public static LinkedList<Fielder> fielders = new LinkedList<Fielder>();
+    public static LinkedList<Pitcher> pitchers = new LinkedList<Pitcher>();
+	public static void main(String[] args)
+    {             
+        linkedList list = new linkedList(); 
+     
+        ThreeColGUI    = new GUI("Project 3",650,350);
+
+          reader = new TextFileInput("players.txt");
+            String current;
+            while((current = reader.readLine()) != null) {
+                String [] wordFromLine = current.split(","); // every loop, we get 4-5 strings per line
+                ThreeColGUI.textArea1.append(current);
+                ThreeColGUI.textArea1.append("\n");
+                char playerType = wordFromLine[0].charAt(0);
+                int playerNum = Integer.parseInt(wordFromLine[1]);
+                String playerLN = wordFromLine[2];
+                String playerFN = wordFromLine[3];
+                float playerBA = Float.parseFloat(wordFromLine[4]);
+                	
+                if (playerType == 'P') { // 1st part of linked list
+                	float playerERA = Float.parseFloat(wordFromLine[5]);
+                	Pitcher currentPitcher = new Pitcher(playerType, playerNum, playerLN,
+                										 playerFN, playerBA, playerERA);
+                	pitchers.add(currentPitcher);
+                }
+                
+                if (playerType == 'F') { // 2nd part of linked list
+                    Fielder currentFielder = new 
+                    		Fielder (playerType, playerNum, playerLN, playerFN, playerBA);
+                    fielders.add(currentFielder);
+                    }
+            } // end while
+                
+             // initialize "final / combined" linked list:
+                
+                int pc=0; // abbreviation for Pitchers Counter
+                while (pc<pitchers.size()) {
+                list.insert(pitchers.get(pc)); // insert all pitchers  
+                pc++;
+                }
+                int fc=0; // abbreviation for Fielders Counter
+                while (fc<fielders.size()) { 
+                list.insert(fielders.get(fc)); // insert all fielders 
+                fc++;
+                }
+                
+
+      
+        
+        /*BaseballPlayer player1 = new BaseballPlayer('F', 23, "Tyson", "Mike", 0.33f);
+        BaseballPlayer player2 = new BaseballPlayer('F', 67, "Lewis", "Lennox", 0.56f);
+        BaseballPlayer player3 = new BaseballPlayer('F', 45, "Niggers", "Jax", 0.52f);
+        Pitcher player4 = new Pitcher('P', 45, "Pitchers", "Pitch", 0.52f, 1.23f);
+
+        list.insert(player1);
+        list.insert(player2);
+        list.insert(player3);
+        list.insert((BaseballPlayer) player4);
+        
+        */
+        list.display();
+
+
+
+    }
+}
